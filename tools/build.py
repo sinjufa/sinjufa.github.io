@@ -280,6 +280,7 @@ def full(key, title, desc, body):
     ld = "".join(f'<script type="application/ld+json">{json.dumps(x, ensure_ascii=False)}</script>' for x in lds)
     return (f'<!doctype html><html lang="zh-Hant-TW"><head><meta charset="utf-8">'
             f'<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">'
+            f'<meta name="google-site-verification" content="omOODyRiy1-LgXparDs0G9Vi0wbMmfsLvm_B5a5UhSU">'
             f'<title>{title}</title><meta name="description" content="{desc}">'
             f'<link rel="canonical" href="{url}"><link rel="icon" href="assets/logo.png">'
             f'<meta property="og:type" content="website"><meta property="og:site_name" content="新聚發建設">'
