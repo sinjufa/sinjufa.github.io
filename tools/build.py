@@ -81,6 +81,9 @@ dl.spec dd{margin:0;text-align:right}
 .plans figure{margin:0;background:#fff;border:1px solid var(--line)}
 @media (max-width:720px){.plans{grid-template-columns:1fr}}
 .note{font-size:13px;color:var(--mute)}
+dl.faq{margin:0;display:grid;gap:0}
+dl.faq dt{font-family:var(--serif);font-weight:600;color:var(--green);padding-top:18px}
+dl.faq dd{margin:0;padding-bottom:18px;border-bottom:1px solid var(--line)}
 .todo{border:1px dashed var(--sand);background:var(--paper);color:var(--mute);padding:28px;text-align:center;font-size:14px}
 ol.steps{list-style:none;margin:0;padding:0;display:grid;gap:0;counter-reset:s}
 ol.steps li{counter-increment:s;display:grid;grid-template-columns:48px minmax(0,1fr);gap:12px;padding-block:18px;border-bottom:1px solid var(--line)}
@@ -115,7 +118,7 @@ LINE_CTA = '''<section class="band"><div class="wrap narrow stack">
 
 PAGES = {}
 
-PAGES["index"] = ("新聚發建設｜台中北屯建設公司・聚社區電梯透天", "新聚發建設是台中北屯的建設公司。第一個作品「聚社區」是全新完工的電梯透天別墅，步行約 3 分鐘到太原車站，搭台鐵約 15 分鐘到高鐵台中站。", f'''
+PAGES["index"] = ("新聚發建設｜台中北屯建設公司・聚社區電梯透天", "新聚發建設是台中北屯區的建設公司。第一個作品「聚社區」是全新完工的電梯透天新成屋，附電動車充電樁，步行約 3 分鐘到太原車站，搭台鐵約 15 分鐘到高鐵台中站。", f'''
 <section class="hero" style="padding-block:0"><div class="wrap" style="padding-top:24px">
 <figure><img src="assets/photo_front.jpg" alt="聚社區外觀" width="1080" height="821"><figcaption class="cap">聚社區｜實景拍攝</figcaption></figure>
 <div class="copy stack narrow" style="padding-bottom:64px">
@@ -166,7 +169,7 @@ PAGES["story"] = ("品牌故事｜新聚發建設 台中北屯", "一天的辛�
 <p>萃聚一堂，福澤綿長。</p></div></section>
 {LINE_CTA}''')
 
-PAGES["works"] = ("聚社區｜台中北屯太原車站電梯透天別墅・店面｜新聚發建設", "聚社區位於台中市北屯區北安街，全新完工電梯透天別墅，5 房 6 衛含 3 間套房、一樓平面雙車位、約 6 米面寬。步行約 3 分鐘到太原車站，臨 10 米路店面可開業。價格歡迎洽詢。", f'''
+PAGES["works"] = ("聚社區｜台中北屯電梯透天新成屋・太原車站・店面｜新聚發建設", "聚社區位於台中市北屯區北安街，全新完工電梯透天別墅（新成屋），設電動車充電樁，5 房 6 衛含 3 間套房、一樓平面雙車位、約 6 米面寬。步行約 3 分鐘到太原車站，臨 10 米路店面可開業。價格歡迎洽詢。", f'''
 <section class="hero" style="padding-block:0"><div class="wrap" style="padding-top:24px">
 <figure><img src="assets/render_shop.jpg" alt="聚社區 臨路店鋪 3D 圖" width="1080" height="640"><figcaption class="cap">3D 模擬示意</figcaption></figure>
 <div class="copy stack narrow" style="padding-bottom:64px"><p class="eyebrow">作品 01｜台中市北屯區北安街</p>
@@ -225,6 +228,8 @@ PAGES["works"] = ("聚社區｜台中北屯太原車站電梯透天別墅・店�
 </div>
 <p class="note">格局圖以合約圖說為準。家具配置為示意。</p></div></section>
 
+<section><div class="wrap narrow stack" style="gap:24px"><p class="eyebrow">常見問題</p><h2>關於聚社區</h2><dl class="faq"><dt>聚社區在哪裡？</dt><dd>台中市北屯區北安街（北興里），步行約 3 分鐘到台鐵太原車站，搭台鐵約 15 分鐘到高鐵台中站，開車約 7 分鐘上 74 快速道路。</dd><dt>是新成屋嗎？</dt><dd>是。聚社區已全新完工，可以預約直接看實屋。</dd><dt>有電動車充電樁嗎？</dt><dd>有。聚社區設有電動車充電樁，一樓為平面雙車位。</dd><dt>店面可以做生意嗎？</dt><dd>臨 10 米路的 8 號、10 號為店鋪，可開業，適合店住合一。</dd><dt>學區是哪裡？</dt><dd>北屯國小、三光國中（北興里全里劃入學區）。</dd><dt>價格多少？</dt><dd>價格歡迎洽詢。請用 LINE 聯絡阿廷：tim0108。</dd></dl></div></section>
+<section><div class="wrap narrow stack" lang="ja"><p class="eyebrow">日本語のご案内</p><h2>台中・太原駅から徒歩約3分の新築一戸建て</h2><p>「聚社區」は台中市北屯区にある、エレベーター付きの新築一戸建て（地上5階）です。台湾鉄道・太原駅から徒歩約3分、台湾高速鉄道（新幹線）台中駅まで在来線で約15分。寝室5室・バスルーム6室（うちスイート3室）、1階に平面駐車場2台分、EV充電設備があります。10m道路に面した店舗併用住宅もございます。</p><p>お問い合わせは LINE（ID：tim0108）まで。日本語で対応いたします。</p><p class="note">※ 時間・距離はおおよその目安です。</p></div></section>
 <section><div class="wrap narrow stack"><p class="eyebrow">團隊</p>
 <dl class="spec" style="grid-template-columns:1fr"><div><dt>投資興建</dt><dd>新聚發建設</dd></div><div><dt>建築設計</dt><dd>嵐建築師事務所</dd></div></dl></div></section>
 {LINE_CTA}''')
@@ -268,6 +273,11 @@ WORKS_LD = {"@context": "https://schema.org", "@type": "Residence", "name": "聚
             "geo": {"@type": "GeoCoordinates", "latitude": 24.163694, "longitude": 120.698094}}
 
 
+FAQ_LD = {"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{'@type': 'Question', 'name': '聚社區在哪裡？', 'acceptedAnswer': {'@type': 'Answer', 'text': '台中市北屯區北安街（北興里），步行約 3 分鐘到台鐵太原車站，搭台鐵約 15 分鐘到高鐵台中站，開車約 7 分鐘上 74 快速道路。'}}, {'@type': 'Question', 'name': '是新成屋嗎？', 'acceptedAnswer': {'@type': 'Answer', 'text': '是。聚社區已全新完工，可以預約直接看實屋。'}}, {'@type': 'Question', 'name': '有電動車充電樁嗎？', 'acceptedAnswer': {'@type': 'Answer', 'text': '有。聚社區設有電動車充電樁，一樓為平面雙車位。'}}, {'@type': 'Question', 'name': '店面可以做生意嗎？', 'acceptedAnswer': {'@type': 'Answer', 'text': '臨 10 米路的 8 號、10 號為店鋪，可開業，適合店住合一。'}}, {'@type': 'Question', 'name': '學區是哪裡？', 'acceptedAnswer': {'@type': 'Answer', 'text': '北屯國小、三光國中（北興里全里劃入學區）。'}}, {'@type': 'Question', 'name': '價格多少？', 'acceptedAnswer': {'@type': 'Answer', 'text': '價格歡迎洽詢。請用 LINE 聯絡阿廷：tim0108。'}}]}
+
+KEYWORDS = "台中,北屯,北屯區,台中透天,北屯透天,電梯透天,透天別墅,新成屋,北屯新成屋,太原車站,太原車站透天,北屯店面,店住合一,充電樁,電動車,雙車位,三光國中,北屯國小,新聚發建設,聚社區,台中 一戸建て,新築,太原駅"
+
+
 def page_url(key):
     return BASE_URL if key == "index" else f"{BASE_URL}{key}.html"
 
@@ -276,12 +286,12 @@ def full(key, title, desc, body):
     import json
     url = page_url(key)
     img = BASE_URL + ("assets/render_shop.jpg" if key == "works" else "assets/photo_front.jpg")
-    lds = [ORG_LD] + ([WORKS_LD] if key == "works" else [])
+    lds = [ORG_LD] + ([WORKS_LD, FAQ_LD] if key == "works" else [])
     ld = "".join(f'<script type="application/ld+json">{json.dumps(x, ensure_ascii=False)}</script>' for x in lds)
     return (f'<!doctype html><html lang="zh-Hant-TW"><head><meta charset="utf-8">'
             f'<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">'
             f'<meta name="google-site-verification" content="omOODyRiy1-LgXparDs0G9Vi0wbMmfsLvm_B5a5UhSU">'
-            f'<title>{title}</title><meta name="description" content="{desc}">'
+            f'<title>{title}</title><meta name="description" content="{desc}"><meta name="keywords" content="{KEYWORDS}">'
             f'<link rel="canonical" href="{url}"><link rel="icon" href="assets/logo.png">'
             f'<meta property="og:type" content="website"><meta property="og:site_name" content="新聚發建設">'
             f'<meta property="og:locale" content="zh_TW"><meta property="og:url" content="{url}">'
