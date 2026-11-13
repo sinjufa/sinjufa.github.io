@@ -1,0 +1,93 @@
+<!doctype html><html lang="zh-Hant"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><title>品牌故事｜新聚發建設</title><meta name="description" content="一天的辛苦，都是為了晚上這一桌。新聚發建設的品牌故事。"><meta property="og:title" content="品牌故事｜新聚發建設"><meta property="og:description" content="一天的辛苦，都是為了晚上這一桌。新聚發建設的品牌故事。"><meta property="og:image" content="assets/photo_front.jpg"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500&family=Noto+Serif+TC:wght@500;600&display=swap"><style>
+/* 版面：無印式留白，單欄閱讀，圖片滿版，文字窄欄 */
+:root{
+  --green:#374836; --sand:#DFC4A6; --rice:#F3F0EA;
+  --paper:#FAF8F4; --ink:#2A2E29; --mute:#6B7068; --line:#D9D3C7;
+  --serif:"Noto Serif TC","Songti TC","PMingLiU",serif;
+  --sans:"Noto Sans TC","PingFang TC","Microsoft JhengHei",sans-serif;
+  color-scheme:light;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--rice);color:var(--ink);font:400 16px/1.9 var(--sans);letter-spacing:.04em}
+img{max-width:100%;display:block;height:auto}
+a{color:inherit}
+a:focus-visible{outline:2px solid var(--green);outline-offset:3px}
+.wrap{max-width:1080px;margin:0 auto;padding-left:max(20px,env(safe-area-inset-left,0px));padding-right:max(20px,env(safe-area-inset-right,0px))}
+.narrow{max-width:640px}
+.wrap.narrow{max-width:1080px}
+.wrap.narrow>*{max-width:640px}
+header.site{background:var(--rice);border-bottom:1px solid var(--line)}
+header.site .wrap{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px 24px;padding-block:14px}
+.brand{display:flex;align-items:center;gap:12px;text-decoration:none}
+.brand img{width:44px;height:44px}
+.brand span{font:500 15px/1 var(--serif);letter-spacing:.2em;color:var(--green)}
+nav.main{display:flex;flex-wrap:wrap;gap:4px 22px;font-size:14px}
+nav.main a{text-decoration:none;color:var(--mute);padding-block:4px;border-bottom:1px solid transparent}
+nav.main a:hover,nav.main a[aria-current]{color:var(--green);border-bottom-color:var(--sand)}
+h1,h2,h3{font-family:var(--serif);font-weight:600;color:var(--green);text-wrap:balance;letter-spacing:.08em;line-height:1.5;margin:0}
+h1{font-size:clamp(28px,5vw,40px)}
+h2{font-size:clamp(22px,3.4vw,28px)}
+h3{font-size:18px}
+p{margin:0}
+.stack{display:flex;flex-direction:column;gap:20px}
+section{padding-block:72px}
+section+section{border-top:1px solid var(--line)}
+.eyebrow{font-size:12px;letter-spacing:.3em;color:var(--mute)}
+.jp{font-family:var(--serif);font-size:15px;color:var(--mute);letter-spacing:.12em}
+.hero{background:var(--paper)}
+.hero figure{margin:0}
+.hero img{width:100%;max-height:560px;object-fit:cover}
+.cap{font-size:12px;color:var(--mute);letter-spacing:.1em;padding-top:8px}
+.hero .copy{padding-block:48px 8px}
+.lead{font-family:var(--serif);font-size:clamp(18px,2.6vw,22px);color:var(--ink);line-height:2}
+.three{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:32px}
+.three .k{font:600 34px/1 var(--serif);color:var(--green)}
+.three .k::after{content:"";display:block;width:24px;height:1px;background:var(--sand);margin-top:16px}
+@media (max-width:720px){.three{grid-template-columns:1fr;gap:28px}section{padding-block:56px}}
+.feature{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);gap:40px;align-items:center}
+@media (max-width:720px){.feature{grid-template-columns:1fr;gap:24px}}
+.btn{display:inline-block;align-self:flex-start;text-decoration:none;color:var(--green);border:1px solid var(--green);padding:10px 22px;font-size:14px;letter-spacing:.15em}
+.btn:hover{background:var(--green);color:var(--rice)}
+.band{background:var(--green);color:var(--rice)}
+.band h2,.band h3{color:var(--rice)}
+.band .eyebrow,.band .cap{color:var(--sand)}
+.band .btn{color:var(--rice);border-color:var(--sand)}
+.band .btn:hover{background:var(--sand);color:var(--green)}
+dl.spec{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 32px;margin:0}
+dl.spec div{display:flex;justify-content:space-between;gap:16px;border-bottom:1px solid var(--line);padding-block:12px}
+dl.spec dt{color:var(--mute);font-size:14px}
+dl.spec dd{margin:0;text-align:right}
+@media (max-width:600px){dl.spec{grid-template-columns:1fr}}
+.units{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px}
+@media (max-width:600px){.units{grid-template-columns:1fr}}
+.unit{background:var(--paper);border:1px solid var(--line);padding:24px;display:flex;flex-direction:column;gap:6px}
+.unit .tag{font-size:12px;color:var(--mute);letter-spacing:.2em}
+.unit .no{font:600 22px/1.4 var(--serif);color:var(--green)}
+.unit .num{font-variant-numeric:tabular-nums}
+.gallery{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+.gallery figure{margin:0}
+@media (max-width:600px){.gallery{grid-template-columns:1fr}}
+.plans{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+.plans figure{margin:0;background:#fff;border:1px solid var(--line)}
+@media (max-width:720px){.plans{grid-template-columns:1fr}}
+.note{font-size:13px;color:var(--mute)}
+.todo{border:1px dashed var(--sand);background:var(--paper);color:var(--mute);padding:28px;text-align:center;font-size:14px}
+ol.steps{list-style:none;margin:0;padding:0;display:grid;gap:0;counter-reset:s}
+ol.steps li{counter-increment:s;display:grid;grid-template-columns:48px minmax(0,1fr);gap:12px;padding-block:18px;border-bottom:1px solid var(--line)}
+ol.steps li::before{content:counter(s);font:600 22px/1.4 var(--serif);color:var(--sand)}
+.story p{font-family:var(--serif);font-size:17px;line-height:2.2}
+.story h2{font-size:20px;padding-top:24px}
+.line-id{font:600 clamp(26px,5vw,36px)/1.3 var(--serif);color:var(--green);letter-spacing:.06em;user-select:all}
+footer.site{border-top:1px solid var(--line);padding-block:40px;font-size:12px;color:var(--mute);letter-spacing:.1em}
+footer.site .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px}
+@media (prefers-reduced-motion:no-preference){.btn,nav.main a{transition:color .2s,background .2s,border-color .2s}}
+</style></head><body><header class="site"><div class="wrap"><a class="brand" href="./" aria-label="新聚發建設 首頁"><img src="assets/logo.png" alt="新聚發建設 LOGO" width="44" height="44"><span>新聚發建設</span></a><nav class="main" aria-label="主選單"><a href="story.html" aria-current="page">品牌故事</a><a href="works.html">作品</a><a href="service.html">售後服務</a><a href="contact.html">聯絡我們</a></nav></div></header><main>
+<section><div class="wrap narrow stack story">
+<p class="eyebrow">品牌故事</p><h1>一天的辛苦，<br>都是為了晚上這一桌。</h1>
+<h2>晚上七點</h2><p>晚上七點，巷口的燈一盞一盞亮起。爸爸停好車，媽媽把湯端上桌。阿嬤坐在老位子，等孫子下樓。</p><p>一天的辛苦，都是為了這一刻。</p><h2>一位老師傅</h2><p>我們心裡，一直住著一位老師傅。</p><p>他蓋了一輩子房子。天還沒亮就出門，回到家，桌上的菜已經涼了。</p><p>有一年過年，他終於早一點回家。一家人，卻圍不滿一張桌子。兒子在外地，孫子在另一座城市，父親的房間空著。</p><p>那天晚上，他想了很久。房子蓋了那麼多，卻沒有一間，讓一家人晚上想回來。</p><h2>為了晚上這一桌</h2><p>後來，他換了一種蓋法。先想晚上，再畫圖。</p><p>長輩累了一天，不必再和樓梯計較，所以有一部電梯。每一代都需要自己的空間，所以有三間套房。關上門各自休息，打開門就是一家人。下班的人不想繞圈找車位，所以一樓有平面雙車位。在外地工作的孩子，下了火車，走約 3 分鐘就到太原車站旁的家。</p><h2>看不見的地方</h2><p>他每天都到現場。牆裡的管線，他看。磁磚的縫，他蹲下來看。</p><p>有人問他：「客人又看不到，何必？」他只說一句：「我自己也會想住。」</p><p>看不見的地方不省，是他最在意的事。</p><h2>聚，在名字的正中間</h2><p>新聚發。「聚」，我們放在正中間。</p><p>新，是開始。發，是福氣。但我們最在乎的，是中間那個字。</p><p>一家人，每天晚上，回到同一張桌子。</p><h2>三種顏色</h2><p>深綠，是傍晚院子裡樹影的顏色。忙了一天，看見它，就知道快到家了。</p><p>沙金，是晚餐時亮起的那盞燈。米白，是剛煮好的一鍋白飯。</p><p>我們把這三種顏色，放進每一個看得見的地方。</p><h2>第一個作品</h2><p>聚社區，是新聚發建設的第一個作品。</p><p>戶數不多。我們寧可少蓋一點，把每一處做細。</p><p>少，是只做該做的。細，是看不見的地方也不省。聚，是讓一家人，每天晚上都想回來。</p>
+<p style="padding-top:24px">聚，一家人的日常。<br><span class="jp">家族が集う、いつもの日々。</span></p>
+<p>萃聚一堂，福澤綿長。</p></div></section>
+<section class="band"><div class="wrap narrow stack">
+<p class="eyebrow">預約看屋</p><h2>想來看看，先跟阿廷說一聲。</h2>
+<p>阿廷｜LINE：tim0108</p><a class="btn" href="contact.html">聯絡方式</a></div></section></main><footer class="site"><div class="wrap"><span>新聚發建設股份有限公司｜創立於 2021 年｜統一編號 90486525<br>台中市北區天祥街 228-7 號｜電話 04-2232-5169｜sinjufa@gmail.com</span><span>聚，一家人的日常。</span></div></footer></body></html>
