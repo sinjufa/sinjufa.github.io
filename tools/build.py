@@ -115,11 +115,11 @@ LINE_CTA = '''<section class="band"><div class="wrap narrow stack">
 
 PAGES = {}
 
-PAGES["index"] = ("新聚發建設", "台中北屯的建設公司。聚，一家人的日常。", f'''
+PAGES["index"] = ("新聚發建設｜台中北屯建設公司・聚社區電梯透天", "新聚發建設是台中北屯的建設公司。第一個作品「聚社區」是全新完工的電梯透天別墅，步行約 3 分鐘到太原車站，搭台鐵約 15 分鐘到高鐵台中站。", f'''
 <section class="hero" style="padding-block:0"><div class="wrap" style="padding-top:24px">
 <figure><img src="assets/photo_front.jpg" alt="聚社區外觀" width="1080" height="821"><figcaption class="cap">聚社區｜實景拍攝</figcaption></figure>
 <div class="copy stack narrow" style="padding-bottom:64px">
-<h1>聚，一家人的日常。</h1><p class="jp">家族が集う、いつもの日々。</p>
+<p class="eyebrow">台中北屯｜建設公司</p><h1>聚，一家人的日常。</h1><p class="jp">家族が集う、いつもの日々。</p>
 <p class="lead">一天的辛苦，都是為了晚上這一桌。</p></div></div></section>
 
 <section><div class="wrap stack" style="gap:40px">
@@ -158,7 +158,7 @@ STORY = [
                "少，是只做該做的。細，是看不見的地方也不省。聚，是讓一家人，每天晚上都想回來。"]),
 ]
 story_html = "".join(f"<h2>{h}</h2>" + "".join(f"<p>{p}</p>" for p in ps) for h, ps in STORY)
-PAGES["story"] = ("品牌故事｜新聚發建設", "一天的辛苦，都是為了晚上這一桌。新聚發建設的品牌故事。", f'''
+PAGES["story"] = ("品牌故事｜新聚發建設 台中北屯", "一天的辛苦，都是為了晚上這一桌。台中北屯建設公司「新聚發建設」的品牌故事：少、細、聚。", f'''
 <section><div class="wrap narrow stack story">
 <p class="eyebrow">品牌故事</p><h1>一天的辛苦，<br>都是為了晚上這一桌。</h1>
 {story_html}
@@ -166,7 +166,7 @@ PAGES["story"] = ("品牌故事｜新聚發建設", "一天的辛苦，都是為
 <p>萃聚一堂，福澤綿長。</p></div></section>
 {LINE_CTA}''')
 
-PAGES["works"] = ("聚社區｜新聚發建設", "聚社區：台中北屯電梯透天別墅，全新完工，步行約 3 分鐘到太原車站。", f'''
+PAGES["works"] = ("聚社區｜台中北屯太原車站電梯透天別墅・店面｜新聚發建設", "聚社區位於台中市北屯區北安街，全新完工電梯透天別墅，5 房 6 衛含 3 間套房、一樓平面雙車位、約 6 米面寬。步行約 3 分鐘到太原車站，臨 10 米路店面可開業。價格歡迎洽詢。", f'''
 <section class="hero" style="padding-block:0"><div class="wrap" style="padding-top:24px">
 <figure><img src="assets/render_shop.jpg" alt="聚社區 臨路店鋪 3D 圖" width="1080" height="640"><figcaption class="cap">3D 模擬示意</figcaption></figure>
 <div class="copy stack narrow" style="padding-bottom:64px"><p class="eyebrow">作品 01｜台中市北屯區北安街</p>
@@ -229,7 +229,7 @@ PAGES["works"] = ("聚社區｜新聚發建設", "聚社區：台中北屯電梯
 <dl class="spec" style="grid-template-columns:1fr"><div><dt>投資興建</dt><dd>新聚發建設</dd></div><div><dt>建築設計</dt><dd>嵐建築師事務所</dd></div></dl></div></section>
 {LINE_CTA}''')
 
-PAGES["service"] = ("售後服務｜新聚發建設", "交屋之後，有問題用 LINE 告訴阿廷，2 個工作天內回覆。", f'''
+PAGES["service"] = ("售後服務｜新聚發建設 台中北屯", "交屋之後，有問題用 LINE 告訴阿廷，2 個工作天內回覆。", f'''
 <section><div class="wrap narrow stack">
 <p class="eyebrow">售後服務</p><h1>交屋之後，<br>我們還在。</h1>
 <p>房子住進去，才是日常的開始。哪裡不對勁，拍張照傳給我們。</p></div></section>
@@ -241,7 +241,7 @@ PAGES["service"] = ("售後服務｜新聚發建設", "交屋之後，有問題�
 </ol></div></section>
 {LINE_CTA}''')
 
-PAGES["contact"] = ("聯絡我們｜新聚發建設", "看屋與洽詢：阿廷｜LINE：tim0108。", '''
+PAGES["contact"] = ("聯絡我們・預約看屋｜新聚發建設 聚社區", "預約看聚社區：阿廷｜LINE：tim0108。公司電話 04-2232-5169，台中市北區天祥街 228-7 號。", '''
 <section><div class="wrap narrow stack" style="gap:28px">
 <p class="eyebrow">聯絡我們</p><h1>看屋、洽詢，<br>都找阿廷。</h1>
 <p>看屋請先用 LINE 預約時間，我們會帶您看實屋。</p>
@@ -253,17 +253,44 @@ PAGES["contact"] = ("聯絡我們｜新聚發建設", "看屋與洽詢：阿廷�
 </div></section>''')
 
 
+BASE_URL = "https://sinjufa.github.io/"
+ORG_LD = {"@context": "https://schema.org", "@type": "Organization", "name": "新聚發建設股份有限公司",
+          "alternateName": ["新聚發建設", "SINJUFA CONSTRUCTION CO., LTD"], "url": BASE_URL,
+          "logo": BASE_URL + "assets/logo.png", "telephone": "+886-4-2232-5169", "email": "sinjufa@gmail.com",
+          "foundingDate": "2021", "taxID": "90486525",
+          "address": {"@type": "PostalAddress", "streetAddress": "天祥街228-7號", "addressLocality": "北區",
+                      "addressRegion": "臺中市", "addressCountry": "TW"}}
+WORKS_LD = {"@context": "https://schema.org", "@type": "Residence", "name": "聚社區",
+            "description": "台中北屯電梯透天別墅，全新完工，步行約 3 分鐘到太原車站。",
+            "url": BASE_URL + "works.html", "image": BASE_URL + "assets/render_shop.jpg",
+            "address": {"@type": "PostalAddress", "streetAddress": "北安街", "addressLocality": "北屯區",
+                        "addressRegion": "臺中市", "addressCountry": "TW"},
+            "geo": {"@type": "GeoCoordinates", "latitude": 24.163694, "longitude": 120.698094}}
+
+
+def page_url(key):
+    return BASE_URL if key == "index" else f"{BASE_URL}{key}.html"
+
+
 def full(key, title, desc, body):
-    return (f'<!doctype html><html lang="zh-Hant"><head><meta charset="utf-8">'
+    import json
+    url = page_url(key)
+    img = BASE_URL + ("assets/render_shop.jpg" if key == "works" else "assets/photo_front.jpg")
+    lds = [ORG_LD] + ([WORKS_LD] if key == "works" else [])
+    ld = "".join(f'<script type="application/ld+json">{json.dumps(x, ensure_ascii=False)}</script>' for x in lds)
+    return (f'<!doctype html><html lang="zh-Hant-TW"><head><meta charset="utf-8">'
             f'<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">'
             f'<title>{title}</title><meta name="description" content="{desc}">'
+            f'<link rel="canonical" href="{url}"><link rel="icon" href="assets/logo.png">'
+            f'<meta property="og:type" content="website"><meta property="og:site_name" content="新聚發建設">'
+            f'<meta property="og:locale" content="zh_TW"><meta property="og:url" content="{url}">'
             f'<meta property="og:title" content="{title}"><meta property="og:description" content="{desc}">'
-            f'<meta property="og:image" content="assets/photo_front.jpg">'
-            f'{FONTS}<style>{CSS}</style></head><body>{header(key)}<main>{body}</main>{FOOTER}</body></html>')
+            f'<meta property="og:image" content="{img}"><meta name="twitter:card" content="summary_large_image">'
+            f'{ld}{FONTS}<style>{CSS}</style></head><body>{header(key)}<main>{body}</main>{FOOTER}</body></html>')
 
 
 def preview(key, title, desc, body):
-    return (f'<title>{title}</title><meta name="claude:viewport-fit-sides" content="cover">'
+    return (f'<title>新聚發建設官網</title><meta name="claude:viewport-fit-sides" content="cover">'
             f'{FONTS}<style>{CSS}</style>{header(key)}<main>{body}</main>{FOOTER}')
 
 
@@ -271,5 +298,10 @@ SITE.mkdir(exist_ok=True)
 for key, (title, desc, body) in PAGES.items():
     name = "index.html" if key == "index" else f"{key}.html"
     (SITE / name).write_text(full(key, title, desc, body), encoding="utf-8")
+import datetime
+today = datetime.date.today().isoformat()
+(SITE / "sitemap.xml").write_text('<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' + "".join(
+    f"  <url><loc>{page_url(k)}</loc><lastmod>{today}</lastmod></url>\n" for k in PAGES) + "</urlset>\n", encoding="utf-8")
+(SITE / "robots.txt").write_text(f"User-agent: *\nAllow: /\nSitemap: {BASE_URL}sitemap.xml\n", encoding="utf-8")
 (ROOT / "preview_index.html").write_text(preview("index", *PAGES["index"]), encoding="utf-8")
 print("ok")
