@@ -106,30 +106,50 @@ details.fold>div{padding-bottom:24px}
 .pics{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
 .pics figure{margin:0}.pics img{width:100%;aspect-ratio:4/3;object-fit:cover}
 @media (max-width:600px){.pics{grid-template-columns:1fr}}
-footer.site .line{font:600 20px/1.4 var(--serif);color:var(--green);letter-spacing:.08em;text-decoration:none}
+.zoom{display:grid;gap:40px}.zoom figure{margin:0;background:#fff;border:1px solid var(--line)}.zoom a{display:block;cursor:zoom-in}.zoom figcaption{padding:10px 14px;font-size:13px;color:var(--mute);border-top:1px solid var(--line);background:var(--paper)}
+.navs{display:flex;flex-direction:column;align-items:flex-end;gap:6px}nav.lang{font-size:12px;color:var(--mute);letter-spacing:.1em}nav.lang a{text-decoration:none;color:var(--mute)}nav.lang a:hover{color:var(--green)}nav.lang [aria-current]{color:var(--green);font-weight:500}\n@media (max-width:720px){.navs{align-items:flex-start;width:100%}}\nfooter.site .line{font:600 20px/1.4 var(--serif);color:var(--green);letter-spacing:.08em;text-decoration:none}
 footer.site .contact{display:flex;flex-direction:column;gap:12px;align-items:flex-start}
 @media (prefers-reduced-motion:no-preference){.btn,nav.main a{transition:color .2s,background .2s,border-color .2s}}
 """
 
-NAV = [("./", "首頁", "index"), ("works.html", "聚社區", "works"), ("story.html", "品牌故事", "story"),
-       ("service.html", "售後服務", "service"), ("ja.html", "日本語", "ja")]
-
-
-def header(cur):
-    links = "".join(
-        f'<a href="{h}"{" aria-current=\"page\"" if k == cur else ""}{" lang=\"ja\"" if k == "ja" else ""}>{t}</a>' for h, t, k in NAV if k != "index")
-    return (f'<header class="site"><div class="wrap"><a class="brand" href="./" aria-label="新聚發建設 首頁">'
-            f'<img src="assets/logo.png" alt="新聚發建設 LOGO" width="44" height="44"><span>新聚發建設</span></a>'
-            f'<nav class="main" aria-label="主選單">{links}</nav></div></header>')
-
-
+exec(open(ROOT / "i18n.py", encoding="utf-8").read())
+ORDER = ["works", "plans", "renders", "story", "service"]
+LANGS = {"zh": ("", "zh-Hant-TW", "繁中", "zh_TW"), "en": ("en/", "en", "EN", "en_US"), "ja": ("ja/", "ja", "日本語", "ja_JP")}
 LINE_URL = "https://line.me/ti/p/~tim0108"
-FOOTER = (f'<footer class="site"><div class="wrap">'
-          f'<div class="contact"><span class="eyebrow">預約看屋・洽詢</span>'
-          f'<a class="line" href="{LINE_URL}" target="_blank" rel="noopener">LINE：tim0108</a>'
-          f'<a class="btn" href="{LINE_URL}" target="_blank" rel="noopener">用 LINE 預約看屋</a></div>'
-          f'<span style="align-self:flex-end">新聚發建設股份有限公司｜創立於 2021 年｜統一編號 90486525<br>公司電話 04-2232-5169｜聚，一家人的日常。</span>'
-          f'</div></footer>')
+
+
+def fname(key):
+    return "index.html" if key == "index" else f"{key}.html"
+
+
+def rel(src, dst, key):
+    # 從 src 語言的某頁，連到 dst 語言同一頁的相對路徑
+    up = "../" if LANGS[src][0] else ""
+    return up + LANGS[dst][0] + fname(key)
+
+
+def header(cur, lang="zh"):
+    ui = UI[lang]
+    links = "".join(f'<a href="{fname(k)}"{" aria-current=\"page\"" if k == cur else ""}>{ui["nav"][k]}</a>' for k in ORDER)
+    sw = "｜".join((f'<span aria-current="true">{LANGS[l][2]}</span>' if l == lang else
+                   f'<a href="{rel(lang, l, cur)}" lang="{LANGS[l][1]}" hreflang="{LANGS[l][1]}">{LANGS[l][2]}</a>') for l in LANGS)
+    up = "../" if LANGS[lang][0] else ""
+    return (f'<header class="site"><div class="wrap"><a class="brand" href="./" aria-label="{ui["home"]}">'
+            f'<img src="{up}assets/logo.png" alt="新聚發建設 LOGO" width="44" height="44"><span>新聚發建設</span></a>'
+            f'<div class="navs"><nav class="lang" aria-label="Language">{sw}</nav>'
+            f'<nav class="main" aria-label="Menu">{links}</nav></div></div></header>')
+
+
+def footer(lang="zh"):
+    ui = UI[lang]
+    note = f'<p class="note" style="flex-basis:100%">{ui["note"]}</p>' if ui["note"] else ""
+    return (f'<footer class="site"><div class="wrap">'
+            f'<div class="contact"><span class="eyebrow">{ui["contact"]}</span>'
+            f'<a class="line" href="{LINE_URL}" target="_blank" rel="noopener">LINE：tim0108</a>'
+            f'<a class="btn" href="{LINE_URL}" target="_blank" rel="noopener">{ui["book"]}</a></div>'
+            f'<span style="align-self:flex-end">{ui["company"]}<br>{ui["phone"]} 04-2232-5169｜{ui["tag"]}</span>{note}'
+            f'</div></footer>')
+
 
 PAGES = {}
 
@@ -174,6 +194,11 @@ PAGES["works"] = ("聚社區｜台中北屯電梯透天新成屋・太原車站�
 <div><dt>設備</dt><dd>電梯・電動車充電樁</dd></div>
 </dl></div></section>
 
+<section><div class="wrap feature" style="grid-template-columns:repeat(2,minmax(0,1fr));gap:16px">
+<a class="unit" href="plans.html" style="text-decoration:none"><p class="tag">D2 戶型｜1F～屋頂</p><p class="no">格局圖 →</p><p>點圖可放大</p></a>
+<a class="unit" href="renders.html" style="text-decoration:none"><p class="tag">模擬示意</p><p class="no">3D 外觀圖 →</p><p>店鋪與社區內住宅</p></a>
+</div></section>
+
 <section><div class="wrap stack" style="gap:24px">
 <div class="stack narrow"><p class="eyebrow">位置</p><h2>離車站近，離家人也近。</h2>
 <p>太原車站步行約 3 分鐘｜高鐵台中站搭台鐵約 15 分鐘｜學區：北屯國小・三光國中</p></div>
@@ -189,16 +214,32 @@ PAGES["works"] = ("聚社區｜台中北屯電梯透天新成屋・太原車站�
 <div><dt>Costco 北台中店</dt><dd>開車約 10 分鐘</dd></div>
 <div><dt>漢神洲際百貨</dt><dd>開車約 15 分鐘</dd></div>
 <div><dt>商圈</dt><dd>太原路・昌平路・北屯路</dd></div></dl></div></details>
-<details class="fold"><summary>格局圖（D2 戶型）</summary><div class="stack" style="gap:12px"><div class="plans">
-<figure><img src="assets/plan_1f2f.jpg" alt="1 樓、2 樓格局圖" width="1080" height="1350" loading="lazy"></figure>
-<figure><img src="assets/plan_3f4f.jpg" alt="3 樓、4 樓格局圖" width="1080" height="1350" loading="lazy"></figure>
-<figure><img src="assets/plan_5fr.jpg" alt="5 樓、屋頂格局圖" width="1080" height="1350" loading="lazy"></figure>
-</div><p class="note">格局圖以合約圖說為準。家具配置為示意。</p></div></details>
-<details class="fold"><summary>3D 外觀</summary><div class="stack" style="gap:12px"><div class="pics">
-<figure><img src="assets/render_shop.jpg" alt="聚社區 臨路店鋪 3D 圖" width="1080" height="640" loading="lazy"></figure>
-<figure><img src="assets/render_court.jpg" alt="聚社區 社區內住宅 3D 圖" width="1080" height="640" loading="lazy"></figure>
-</div><p class="note">3D 模擬示意</p></div></details>
 <details class="fold"><summary>常見問題</summary><div><dl class="faq"><dt>是新成屋嗎？</dt><dd>是。聚社區已全新完工，可以預約直接看實屋。</dd><dt>有電動車充電樁嗎？</dt><dd>有。聚社區設有電動車充電樁，一樓為平面雙車位。</dd><dt>店面可以做生意嗎？</dt><dd>臨 10 米路的 8 號、10 號為店鋪，可開業，適合店住合一。</dd><dt>學區是哪裡？</dt><dd>北屯國小、三光國中（北興里全里劃入學區）。</dd><dt>價格多少？</dt><dd>價格歡迎洽詢，請用 LINE 聯絡：tim0108。</dd></dl></div></details>
+</div></section>""")
+
+
+PAGES["plans"] = ("格局圖｜聚社區 D2 戶型 5 房 6 衛電梯透天｜新聚發建設", "聚社區 D2 戶型格局圖：1 樓雙車位、5 房 6 衛含 3 間套房、地上 5 層＋屋突。點圖可放大，格局以合約圖說為準。", """
+<section><div class="wrap narrow stack" style="gap:16px">
+<p class="eyebrow">聚社區｜D2 戶型</p><h1>格局圖</h1>
+<p>點圖片可以開大圖，手機可用兩指放大。</p>
+<p class="note">格局圖以合約圖說為準。家具配置為示意。</p></div></section>
+<section style="padding-top:0"><div class="wrap narrow zoom">
+<figure><a href="assets/plan_1f2f.jpg" target="_blank" rel="noopener"><img src="assets/plan_1f2f.jpg" alt="聚社區 1 樓、2 樓格局圖" width="1080" height="1350"></a><figcaption>1F・2F｜點圖放大</figcaption></figure>
+<figure><a href="assets/plan_3f4f.jpg" target="_blank" rel="noopener"><img src="assets/plan_3f4f.jpg" alt="聚社區 3 樓、4 樓格局圖" width="1080" height="1350" loading="lazy"></a><figcaption>3F・4F｜點圖放大</figcaption></figure>
+<figure><a href="assets/plan_5fr.jpg" target="_blank" rel="noopener"><img src="assets/plan_5fr.jpg" alt="聚社區 5 樓、屋頂格局圖" width="1080" height="1350" loading="lazy"></a><figcaption>5F・屋頂｜點圖放大</figcaption></figure>
+<a class="btn" href="works.html">← 回聚社區</a>
+</div></section>""")
+
+PAGES["renders"] = ("3D 外觀圖｜聚社區 台中北屯電梯透天｜新聚發建設", "聚社區 3D 外觀模擬圖：臨 10 米路店鋪、社區內住宅與入口。3D 圖為模擬示意。", """
+<section><div class="wrap narrow stack" style="gap:16px">
+<p class="eyebrow">聚社區</p><h1>3D 外觀圖</h1>
+<p>點圖片可以開大圖。</p>
+<p class="note">3D 圖為模擬示意，實際以現場與合約圖說為準。</p></div></section>
+<section style="padding-top:0"><div class="wrap zoom">
+<figure><a href="assets/render_shop.jpg" target="_blank" rel="noopener"><img src="assets/render_shop.jpg" alt="聚社區 臨路店鋪 3D 圖" width="1080" height="640"></a><figcaption>臨 10 米路店鋪｜3D 模擬示意</figcaption></figure>
+<figure><a href="assets/render_court.jpg" target="_blank" rel="noopener"><img src="assets/render_court.jpg" alt="聚社區 社區內住宅 3D 圖" width="1080" height="640" loading="lazy"></a><figcaption>社區內住宅｜3D 模擬示意</figcaption></figure>
+<figure><a href="assets/render_entry.jpg" target="_blank" rel="noopener"><img src="assets/render_entry.jpg" alt="聚社區 入口 3D 圖" width="1080" height="560" loading="lazy"></a><figcaption>社區入口｜3D 模擬示意</figcaption></figure>
+<a class="btn" href="works.html">← 回聚社區</a>
 </div></section>""")
 
 PAGES["story"] = ("品牌故事｜新聚發建設 台中北屯", "一天的辛苦，都是為了晚上這一桌。台中北屯建設公司「新聚發建設」的品牌故事：少、細、聚。", """
@@ -224,17 +265,6 @@ PAGES["service"] = ("售後服務｜新聚發建設 台中北屯", "交屋之後
 <li><div><h3>2 個工作天內回覆</h3><p>我們會回覆處理方式，並和您約時間。</p></div></li>
 </ol></div></section>""")
 
-PAGES["ja"] = ("聚社區｜台中・太原駅から徒歩約3分の新築一戸建て｜新聚發建設", "台中市北屯区の新築エレベーター付き一戸建て「聚社區」。太原駅から徒歩約3分、高速鉄道台中駅まで在来線で約15分。日本語でお問い合わせいただけます。", """
-<figure class="full"><img src="assets/garden_day.jpg" alt="聚社區の路地と松の庭" width="1800" height="1134"></figure>
-<section class="intro"><div class="wrap narrow stack" lang="ja">
-<p class="eyebrow">日本語のご案内</p><h1>家族が集う、いつもの日々。</h1>
-<p class="lead">台中・太原駅から徒歩約3分の新築一戸建て「聚社區」。</p>
-<p>台湾鉄道・太原駅から徒歩約3分、台湾高速鉄道（新幹線）台中駅まで在来線で約15分。エレベーター付き地上5階、寝室5室・バスルーム6室（うちスイート3室）、1階に平面駐車場2台分、EV充電設備があります。10m道路に面した店舗併用住宅もございます。</p>
-<p>新聚發建設は2021年創業、台中市の住宅デベロッパーです。「聚」は、家族が毎晩同じ食卓に集うことを意味します。</p>
-<p>お問い合わせは LINE（ID：tim0108）まで。日本語で対応いたします。</p>
-<p class="note">※ 時間・距離はおおよその目安です。間取りは契約図面に準じます。</p></div></section>""")
-
-
 BASE_URL = "https://sinjufa.github.io/"
 ORG_LD = {"@context": "https://schema.org", "@type": "Organization", "name": "新聚發建設股份有限公司",
           "alternateName": ["新聚發建設", "SINJUFA CONSTRUCTION CO., LTD"], "url": BASE_URL,
@@ -255,41 +285,58 @@ FAQ_LD = {"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{
 KEYWORDS = "台中,北屯,北屯區,台中透天,北屯透天,電梯透天,透天別墅,新成屋,北屯新成屋,太原車站,太原車站透天,北屯店面,店住合一,充電樁,電動車,雙車位,三光國中,北屯國小,新聚發建設,聚社區,台中 一戸建て,新築,太原駅"
 
 
-def page_url(key):
-    return BASE_URL if key == "index" else f"{BASE_URL}{key}.html"
+def page_url(key, lang="zh"):
+    p = LANGS[lang][0] + ("" if key == "index" else f"{key}.html")
+    return BASE_URL + p
 
 
-def full(key, title, desc, body):
+def fix_assets(html, lang):
+    if not LANGS[lang][0]:
+        return html
+    for a in ('src="assets/', 'href="assets/', 'srcset="assets/'):
+        html = html.replace(a, a.replace("assets/", "../assets/"))
+    return html
+
+
+def full(key, title, desc, body, lang="zh"):
     import json
-    url = page_url(key)
+    url = page_url(key, lang)
     img = BASE_URL + ("assets/entrance.jpg" if key == "works" else "assets/garden_day.jpg")
-    lds = [ORG_LD] + ([WORKS_LD, FAQ_LD] if key == "works" else [])
+    lds = [ORG_LD] + ([WORKS_LD] + ([FAQ_LD] if lang == "zh" else []) if key == "works" else [])
     ld = "".join(f'<script type="application/ld+json">{json.dumps(x, ensure_ascii=False)}</script>' for x in lds)
-    return (f'<!doctype html><html lang="{'ja' if key == 'ja' else 'zh-Hant-TW'}"><head><meta charset="utf-8">'
+    alt = "".join(f'<link rel="alternate" hreflang="{LANGS[l][1]}" href="{page_url(key, l)}">' for l in LANGS)
+    alt += f'<link rel="alternate" hreflang="x-default" href="{page_url(key, "zh")}">'
+    up = "../" if LANGS[lang][0] else ""
+    kw = f'<meta name="keywords" content="{KEYWORDS}">' if lang == "zh" else ""
+    return (f'<!doctype html><html lang="{LANGS[lang][1]}"><head><meta charset="utf-8">'
             f'<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">'
             f'<meta name="google-site-verification" content="omOODyRiy1-LgXparDs0G9Vi0wbMmfsLvm_B5a5UhSU">'
-            f'<title>{title}</title><meta name="description" content="{desc}"><meta name="keywords" content="{KEYWORDS}">'
-            f'<link rel="canonical" href="{url}"><link rel="icon" href="assets/logo.png">'
+            f'<title>{title}</title><meta name="description" content="{desc}">{kw}'
+            f'<link rel="canonical" href="{url}">{alt}<link rel="icon" href="{up}assets/logo.png">'
             f'<meta property="og:type" content="website"><meta property="og:site_name" content="新聚發建設">'
-            f'<meta property="og:locale" content="zh_TW"><meta property="og:url" content="{url}">'
+            f'<meta property="og:locale" content="{LANGS[lang][3]}"><meta property="og:url" content="{url}">'
             f'<meta property="og:title" content="{title}"><meta property="og:description" content="{desc}">'
             f'<meta property="og:image" content="{img}"><meta name="twitter:card" content="summary_large_image">'
-            f'{ld}{FONTS}<style>{CSS}</style></head><body>{header(key)}<main>{body}</main>{FOOTER}</body></html>')
+            f'{ld}{FONTS}<style>{CSS}</style></head><body>{header(key, lang)}<main>{fix_assets(body, lang)}</main>{footer(lang)}</body></html>')
 
 
 def preview(key, title, desc, body):
     return (f'<title>新聚發建設官網</title><meta name="claude:viewport-fit-sides" content="cover">'
-            f'{FONTS}<style>{CSS}</style>{header(key)}<main>{body}</main>{FOOTER}')
+            f'{FONTS}<style>{CSS}</style>{header(key)}<main>{body}</main>{footer()}')
 
 
-SITE.mkdir(exist_ok=True)
-for key, (title, desc, body) in PAGES.items():
-    name = "index.html" if key == "index" else f"{key}.html"
-    (SITE / name).write_text(full(key, title, desc, body), encoding="utf-8")
+ALL = {"zh": PAGES, "en": T["en"], "ja": T["ja"]}
+for lang, pages in ALL.items():
+    d = SITE / LANGS[lang][0]
+    d.mkdir(parents=True, exist_ok=True)
+    for key, (title, desc, body) in pages.items():
+        (d / fname(key)).write_text(full(key, title, desc, body, lang), encoding="utf-8")
+# 舊的單頁日文網址導到新日文首頁
+(SITE / "ja.html").write_text('<!doctype html><html lang="ja"><head><meta charset="utf-8"><title>聚社區｜日本語</title><link rel="canonical" href="https://sinjufa.github.io/ja/"><meta http-equiv="refresh" content="0; url=ja/"><meta name="robots" content="noindex"></head><body><a href="ja/">日本語ページへ</a></body></html>', encoding="utf-8")
 import datetime
 today = datetime.date.today().isoformat()
 (SITE / "sitemap.xml").write_text('<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' + "".join(
-    f"  <url><loc>{page_url(k)}</loc><lastmod>{today}</lastmod></url>\n" for k in PAGES) + "</urlset>\n", encoding="utf-8")
+    f"  <url><loc>{page_url(k, l)}</loc><lastmod>{today}</lastmod></url>\n" for l in ALL for k in ALL[l]) + "</urlset>\n", encoding="utf-8")
 (SITE / "robots.txt").write_text(f"User-agent: *\nAllow: /\nSitemap: {BASE_URL}sitemap.xml\n", encoding="utf-8")
 (ROOT / "preview_v2_index.html").write_text(preview("index", *PAGES["index"]), encoding="utf-8")
 print("ok")
