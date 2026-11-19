@@ -206,7 +206,7 @@ PAGES["works"] = ("聚社區｜台中北屯電梯透天新成屋・太原車站�
 
 <section><div class="wrap narrow stack" style="gap:0">
 <details class="fold"><summary>完整規格</summary><div><dl class="spec" style="grid-template-columns:1fr">
-<div><dt>面寬</dt><dd>約 6 米</dd></div><div><dt>電梯</dt><dd>永大電梯</dd></div><div><dt>衛浴</dt><dd>TOTO</dd></div><div><dt>建材</dt><dd>大理石</dd></div>
+<div><dt>面寬</dt><dd>約 6 米</dd></div><div><dt>電梯</dt><dd>永大電梯</dd></div><div><dt>衛浴</dt><dd>TOTO</dd></div><div><dt>建材</dt><dd>花崗岩</dd></div>
 <div><dt>建築設計</dt><dd>嵐建築師事務所</dd></div></dl></div></details>
 <details class="fold"><summary>生活機能</summary><div><dl class="spec" style="grid-template-columns:1fr">
 <div><dt>74 快速道路</dt><dd>開車約 7 分鐘</dd></div>
