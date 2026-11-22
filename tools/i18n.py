@@ -72,9 +72,10 @@ T["en"]["works"] = ("Ju Residence｜New Elevator Townhouses near Taiyuan Station
 <div class="stack narrow"><p class="eyebrow">Available now</p><h2>2 shops・2 residences</h2><p>Please contact us for prices. 1 ping ≈ 3.3 m².</p></div>
 <div class="units">{units_html("en")}</div>
 <dl class="spec">{spec_html([("Layout","5 bed / 6 bath (3 en-suites)"),("Floors","5 floors + roof structure"),("Parking","2 spaces, ground floor"),("Facilities","Elevator・EV charger")])}</dl></div></section>
-<section><div class="wrap feature" style="grid-template-columns:repeat(2,minmax(0,1fr));gap:16px">
+<section><div class="wrap feature" style="grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px">
 <a class="unit" href="plans.html" style="text-decoration:none"><p class="tag">Type D2｜1F to roof</p><p class="no">Floor plans →</p><p>Tap to enlarge</p></a>
 <a class="unit" href="renders.html" style="text-decoration:none"><p class="tag">Illustrative</p><p class="no">3D images →</p><p>Shops and residences</p></a>
+<a class="unit" href="../3d/?lang=en" style="text-decoration:none"><p class="tag">Illustrative</p><p class="no">3D 360° view →</p><p>Drag to rotate・Day and night</p></a>
 </div></section>
 <section><div class="wrap stack" style="gap:24px">
 <div class="stack narrow"><p class="eyebrow">Location</p><h2>Close to the station, close to family.</h2>
@@ -103,7 +104,8 @@ T["en"]["renders"] = ("3D Images｜Ju Residence, Beitun, Taichung｜Sinjufa",
 <section><div class="wrap narrow stack" style="gap:16px">
 <p class="eyebrow">Ju Residence</p><h1>3D images</h1>
 <p>Tap an image to open it full size.</p>
-<p class="note">3D images are for illustration only. The actual site and contract drawings prevail.</p></div></section>
+<p class="note">3D images are for illustration only. The actual site and contract drawings prevail.</p>
+<a class="btn" href="../3d/?lang=en">3D 360° view →</a></div></section>
 <section style="padding-top:0"><div class="wrap zoom">
 {zoom_fig("render_shop.jpg","Shop units, 3D image",1080,640,"Shop units on the 10 m road｜Illustrative",False)}
 {zoom_fig("render_court.jpg","Residences, 3D image",1080,640,"Residences inside the community｜Illustrative")}
@@ -165,9 +167,10 @@ T["ja"]["works"] = ("聚社區｜台中・太原駅徒歩約3分 新築エレベ
 <div class="stack narrow"><p class="eyebrow">販売中</p><h2>店舗2戸・住宅2戸</h2><p>価格はお問い合わせください。1坪＝約3.3㎡。</p></div>
 <div class="units">{units_html("ja")}</div>
 <dl class="spec">{spec_html([("間取り","寝室5・バス6（スイート3室）"),("階数","地上5階＋塔屋"),("駐車場","1階 平面2台"),("設備","エレベーター・EV充電設備")])}</dl></div></section>
-<section><div class="wrap feature" style="grid-template-columns:repeat(2,minmax(0,1fr));gap:16px">
+<section><div class="wrap feature" style="grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px">
 <a class="unit" href="plans.html" style="text-decoration:none"><p class="tag">D2タイプ｜1階〜屋上</p><p class="no">間取り図 →</p><p>タップで拡大</p></a>
 <a class="unit" href="renders.html" style="text-decoration:none"><p class="tag">イメージ</p><p class="no">3Dパース →</p><p>店舗と住宅</p></a>
+<a class="unit" href="../3d/?lang=ja" style="text-decoration:none"><p class="tag">イメージ</p><p class="no">3D 360°ビュー →</p><p>ドラッグで回転・昼夜切替</p></a>
 </div></section>
 <section><div class="wrap stack" style="gap:24px">
 <div class="stack narrow"><p class="eyebrow">ロケーション</p><h2>駅に近く、家族にも近く。</h2>
@@ -196,7 +199,8 @@ T["ja"]["renders"] = ("3Dパース｜聚社區 台中・北屯｜新聚發建設
 <section><div class="wrap narrow stack" style="gap:16px">
 <p class="eyebrow">聚社區</p><h1>3Dパース</h1>
 <p>画像をタップすると大きく表示されます。</p>
-<p class="note">3Dパースはイメージです。実際の現地・契約図面が優先します。</p></div></section>
+<p class="note">3Dパースはイメージです。実際の現地・契約図面が優先します。</p>
+<a class="btn" href="../3d/?lang=ja">3D 360°ビュー →</a></div></section>
 <section style="padding-top:0"><div class="wrap zoom">
 {zoom_fig("render_shop.jpg","店舗 3Dパース",1080,640,"10m道路沿いの店舗｜イメージ",False)}
 {zoom_fig("render_court.jpg","住宅 3Dパース",1080,640,"コミュニティ内の住宅｜イメージ")}

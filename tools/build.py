@@ -194,9 +194,10 @@ PAGES["works"] = ("聚社區｜台中北屯電梯透天新成屋・太原車站�
 <div><dt>設備</dt><dd>電梯・電動車充電樁</dd></div>
 </dl></div></section>
 
-<section><div class="wrap feature" style="grid-template-columns:repeat(2,minmax(0,1fr));gap:16px">
+<section><div class="wrap feature" style="grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px">
 <a class="unit" href="plans.html" style="text-decoration:none"><p class="tag">D2 戶型｜1F～屋頂</p><p class="no">格局圖 →</p><p>點圖可放大</p></a>
 <a class="unit" href="renders.html" style="text-decoration:none"><p class="tag">模擬示意</p><p class="no">3D 外觀圖 →</p><p>店鋪與社區內住宅</p></a>
+<a class="unit" href="3d/" style="text-decoration:none"><p class="tag">模擬示意</p><p class="no">3D 環繞看屋 →</p><p>拖曳旋轉・白天夜晚切換</p></a>
 </div></section>
 
 <section><div class="wrap stack" style="gap:24px">
@@ -234,7 +235,8 @@ PAGES["renders"] = ("3D 外觀圖｜聚社區 台中北屯電梯透天｜新聚�
 <section><div class="wrap narrow stack" style="gap:16px">
 <p class="eyebrow">聚社區</p><h1>3D 外觀圖</h1>
 <p>點圖片可以開大圖。</p>
-<p class="note">3D 圖為模擬示意，實際以現場與合約圖說為準。</p></div></section>
+<p class="note">3D 圖為模擬示意，實際以現場與合約圖說為準。</p>
+<a class="btn" href="3d/">3D 環繞看屋 →</a></div></section>
 <section style="padding-top:0"><div class="wrap zoom">
 <figure><a href="assets/render_shop.jpg" target="_blank" rel="noopener"><img src="assets/render_shop.jpg" alt="聚社區 臨路店鋪 3D 圖" width="1080" height="640"></a><figcaption>臨 10 米路店鋪｜3D 模擬示意</figcaption></figure>
 <figure><a href="assets/render_court.jpg" target="_blank" rel="noopener"><img src="assets/render_court.jpg" alt="聚社區 社區內住宅 3D 圖" width="1080" height="640" loading="lazy"></a><figcaption>社區內住宅｜3D 模擬示意</figcaption></figure>
