@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="zh-Hant"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>聚社區 娃娃屋視角</title>
+<meta name="description" content="聚社區 3D 外觀環繞：拖曳旋轉、白天黃昏夜晚切換。3D 為模擬示意。">
+<link rel="canonical" href="https://sinjufa.github.io/3d/">
+<link rel="icon" href="../../assets/logo.png">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@600&family=Noto+Sans+TC:wght@400;500&display=swap">
+<style>
+/* 版面：全幅 3D 畫布，左上標題，底部時段切換；單一視覺世界，不分深淺主題 */
+:root{--bg:#1b1d21;--ink:#f1eee8;--muted:#a9a59d;--panel:rgba(20,22,26,.72);--line:rgba(255,255,255,.14);--accent:#d9a362;
+--display:"Noto Serif TC","Songti TC",serif;--body:"Noto Sans TC","PingFang TC","Microsoft JhengHei",sans-serif;color-scheme:dark}
+*{box-sizing:border-box}html,body{height:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--body);overflow:hidden}
+canvas{display:block;width:100%;height:100%;touch-action:none}
+.hud{position:fixed;inset:0;pointer-events:none;display:flex;flex-direction:column;justify-content:space-between;padding:max(16px,env(safe-area-inset-top)) 16px max(16px,env(safe-area-inset-bottom))}
+.top{display:flex;justify-content:space-between;align-items:flex-start;gap:12px}
+.title{background:var(--panel);backdrop-filter:blur(8px);border:1px solid var(--line);padding:10px 16px;border-radius:4px}
+.title h1{font-family:var(--display);font-size:20px;margin:0;letter-spacing:.14em}
+.title p{margin:4px 0 0;font-size:12px;color:var(--muted);letter-spacing:.08em}
+.tag{font-size:13px;color:var(--ink);letter-spacing:.2em;background:var(--panel);padding:7px 12px;border-radius:4px;border:1px solid var(--accent);white-space:nowrap}
+.back{display:inline-block;margin-top:8px;font-size:13px;color:var(--ink);text-decoration:none;letter-spacing:.08em;background:var(--panel);border:1px solid var(--line);border-radius:4px;padding:8px 12px;pointer-events:auto}
+.back:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.bar{display:flex;justify-content:space-between;align-items:flex-end;gap:12px;flex-wrap:wrap}
+.seg{display:flex;gap:4px;background:var(--panel);backdrop-filter:blur(8px);border:1px solid var(--line);padding:4px;border-radius:6px;pointer-events:auto}
+.seg button{font:inherit;font-size:14px;letter-spacing:.1em;color:var(--ink);background:transparent;border:0;padding:8px 16px;border-radius:4px;cursor:pointer}
+.seg button[aria-pressed="true"]{background:var(--accent);color:#1b1d21;font-weight:500}
+.seg button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.hint{font-size:12px;color:var(--muted);background:var(--panel);padding:8px 12px;border-radius:4px;border:1px solid var(--line);max-width:340px;line-height:1.6}
+.load{position:fixed;inset:0;display:grid;place-items:center;background:var(--bg);transition:opacity .6s;z-index:5}
+.load.off{opacity:0;pointer-events:none}
+.load div{font-family:var(--display);letter-spacing:.3em;font-size:18px}
+.load small{display:block;margin-top:10px;color:var(--muted);letter-spacing:.1em;font-family:var(--body);font-size:12px;text-align:center}
+.load b{display:block;width:180px;height:2px;background:var(--line);margin:14px auto 0;overflow:hidden}
+.load b i{display:block;height:100%;width:0;background:var(--accent);transition:width .2s}
+@media (max-width:520px){.title h1{font-size:17px}.hint{display:none}.seg button{padding:8px 12px;font-size:13px}}
+@media (prefers-reduced-motion:reduce){.load{transition:none}}
+</style><link rel="stylesheet" href="dollhouse.css"></head><body>
+<div class="load" id="load"><div>聚 社 區<small data-t="load">載入 3D 模型</small><b><i id="pb"></i></b></div></div>
+<div class="hud">
+ <div class="top"><div><div class="title"><h1 data-t="h1">聚社區</h1><p data-t="sub">台中北屯 · 娃娃屋視角</p></div><a class="back" href="../../works.html" data-t="back" data-href="back">← 回聚社區</a></div><div class="tag" data-t="tag">模擬示意</div></div>
+ <div class="bar">
+  <div class="seg" role="group" aria-label="時段"><button data-k="day" aria-pressed="true" data-t="day">白天</button><button data-k="dusk" aria-pressed="false" data-t="dusk">黃昏</button><button data-k="night" aria-pressed="false" data-t="night">夜晚</button><button id="auto" aria-pressed="true" data-t="auto">自動環繞</button></div>
+  <div class="hint" data-t="hint">拖曳旋轉、滾輪或雙指縮放。放開後會自動繼續環繞。</div>
+ </div>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/GLTFLoader.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/meshoptimizer@0.18.1/meshopt_decoder.js"></script>
+<script>THREE.DefaultLoadingManager.setURLModifier(u=>/^sign(_e)?\.png$/.test(u)?"../"+u:u);</script>
+<script src="../edits.js"></script>
+<script>
+// 語言：?lang=en / ?lang=ja（官網英日文頁的按鈕會帶這個參數）
+(function(){const L=(new URLSearchParams(location.search).get('lang')||'zh').toLowerCase();
+const T={en:{h1:'Ju Residence',sub:'Beitun, Taichung · 3D 360° view',back:'← Back to Ju Residence',tag:'Illustrative',day:'Day',dusk:'Dusk',night:'Night',auto:'Auto-rotate',hint:'Drag to rotate. Scroll or pinch to zoom. Rotation resumes when you let go.',load:'Loading 3D model',fail:'Could not load. Please refresh.',title:'3D 360° View｜Ju Residence｜Sinjufa'},
+ ja:{h1:'聚社區',sub:'台中・北屯 · 3D 360°ビュー',back:'← 聚社區に戻る',tag:'イメージ',day:'昼',dusk:'夕方',night:'夜',auto:'自動回転',hint:'ドラッグで回転、スクロールまたはピンチで拡大・縮小。指を離すと自動回転に戻ります。',load:'3Dモデルを読み込み中',fail:'読み込めませんでした。再読み込みしてください。',title:'3D 360°ビュー｜聚社區｜新聚發建設'}}[L];
+window.T_FAIL=T?T.fail:'載入失敗，請重新整理';
+if(!T)return;document.documentElement.lang=L==='ja'?'ja':'en';document.title=T.title;
+document.querySelectorAll('[data-t]').forEach(e=>{const k=e.dataset.t;if(T[k])e.textContent=T[k];});
+const b=document.querySelector('.back');if(b)b.href='../../'+L+'/works.html';})();
+// 手機：降低解析度與陰影品質，維持流暢
+window.LITE=matchMedia('(pointer:coarse)').matches||Math.min(innerWidth,innerHeight)<600;
+</script>
+<script>
+const R=new THREE.WebGLRenderer({antialias:true,powerPreference:'high-performance'});R.setPixelRatio(Math.min(devicePixelRatio,LITE?1.5:2));R.setSize(innerWidth,innerHeight);
+R.outputEncoding=THREE.sRGBEncoding;R.toneMapping=THREE.ACESFilmicToneMapping;R.shadowMap.enabled=true;R.shadowMap.type=THREE.PCFSoftShadowMap;document.body.prepend(R.domElement);
+const S=new THREE.Scene();const cam=new THREE.PerspectiveCamera(42,innerWidth/innerHeight,0.3,900);
+const C=new THREE.Vector3(20,9,-5);const GY=1.8;
+const orbit=new THREE.OrbitControls(cam,R.domElement);orbit.target.copy(C);orbit.enableDamping=true;orbit.dampingFactor=.06;orbit.minDistance=18;orbit.maxDistance=140;orbit.maxPolarAngle=Math.PI/2-0.04;orbit.enablePan=false;
+cam.position.set(C.x-55,30,C.z+58);
+// 天空
+const skyU={top:{value:new THREE.Color()},hor:{value:new THREE.Color()},bot:{value:new THREE.Color()},sunDir:{value:new THREE.Vector3()},sunCol:{value:new THREE.Color()},stars:{value:0}};
+S.add(new THREE.Mesh(new THREE.SphereGeometry(600,32,16),new THREE.ShaderMaterial({side:THREE.BackSide,depthWrite:false,uniforms:skyU,
+ vertexShader:'varying vec3 vP;void main(){vP=normalize(position);gl_Position=projectionMatrix*modelViewMatrix*vec4(position,1.);}',
+ fragmentShader:`uniform vec3 top,hor,bot,sunDir,sunCol;uniform float stars;varying vec3 vP;float h(vec3 p){return fract(sin(dot(p,vec3(12.9898,78.233,45.164)))*43758.5453);}
+ void main(){float y=vP.y;vec3 c=y>0.?mix(hor,top,pow(clamp(y,0.,1.),.55)):mix(hor,bot,clamp(-y*4.,0.,1.));float s=max(dot(vP,normalize(sunDir)),0.);c+=sunCol*(pow(s,600.)*3.+pow(s,8.)*.35);
+ if(stars>0.){vec3 q=floor(vP*260.);c+=vec3(step(.9975,h(q))*clamp(y*3.,0.,1.))*stars;}gl_FragColor=vec4(c,1.);}`})));
+S.fog=new THREE.Fog(0xcfd8e0,120,420);
+const hemi=new THREE.HemisphereLight(0xdfe9f5,0x6d6455,.8);S.add(hemi);
+const sun=new THREE.DirectionalLight(0xffffff,2);sun.castShadow=true;sun.shadow.mapSize.set(LITE?1024:2048,LITE?1024:2048);Object.assign(sun.shadow.camera,{left:-60,right:60,top:60,bottom:-60,near:1,far:400});sun.shadow.bias=-0.0006;sun.shadow.normalBias=0.04;S.add(sun);S.add(sun.target);sun.target.position.copy(C).setY(0);
+const groundMat=new THREE.MeshStandardMaterial({color:0x8d8a7f,roughness:1});const ground=new THREE.Mesh(new THREE.CircleGeometry(800,48),groundMat);ground.rotation.x=-Math.PI/2;ground.position.y=GY-0.03;ground.receiveShadow=true;S.add(ground);
+// 鄰地（原模型粉紅色塊＝隔壁鄰居的地，非本案）：蓋上與地面同色的板
+for(const [x0,z0,x1,z1] of [[0.2,1.6,40.9,31.4],[40.9,-8.2,47,31.4]]){const p=new THREE.Mesh(new THREE.PlaneGeometry(x1-x0,z1-z0),groundMat);p.rotation.x=-Math.PI/2;p.position.set((x0+x1)/2,GY+0.06,(z0+z1)/2);p.receiveShadow=true;S.add(p);}
+const wash=new THREE.SpotLight(0xffd2a0,0,90,0.55,0.6,1.2);wash.position.set(14,2.6,27);wash.target.position.set(21,11,-9);S.add(wash);S.add(wash.target);
+const lampL=[];for(const [x,z] of [[-6,6],[-6,26],[14,36],[-6,-14]]){const l=new THREE.PointLight(0xffc98a,0,18,2);l.position.set(x,GY+5,z);S.add(l);lampL.push(l);}
+const NIGHT={value:0};const GLASS=[];
+function glow(m){m.onBeforeCompile=sh=>{sh.uniforms.uNight=NIGHT;sh.vertexShader='varying float vWY;\n'+sh.vertexShader.replace('#include <worldpos_vertex>','#include <worldpos_vertex>\n vWY=(modelMatrix*vec4(transformed,1.)).y;');
+ sh.fragmentShader='uniform float uNight;varying float vWY;\n'+sh.fragmentShader.replace('#include <emissivemap_fragment>',`#include <emissivemap_fragment>
+ float lum=dot(diffuseColor.rgb,vec3(.299,.587,.114));float sat=max(max(diffuseColor.r,diffuseColor.g),diffuseColor.b)-min(min(diffuseColor.r,diffuseColor.g),diffuseColor.b);
+ float gm=(1.-smoothstep(.035,.07,lum))*(1.-smoothstep(.03,.07,sat))*step(.004,lum)*step(2.6,vWY);totalEmissiveRadiance+=vec3(1.,.62,.30)*gm*uNight*.85;`);};}
+const K={day:{top:0x255fa8,hor:0xa9c4dc,bot:0x8f8a80,sun:0xfff1dc,sunI:1.35,hemiS:0xcfe0f2,hemiG:0x5d5547,hemiI:.55,el:48,az:215,fog:0xc4d4e2,exp:.74,win:0,lamp:0,stars:0},
+ dusk:{top:0x24345f,hor:0xe9935a,bot:0x4a3c33,sun:0xff9a55,sunI:1.1,hemiS:0xd9a07c,hemiG:0x3a2e28,hemiI:.38,el:7,az:250,fog:0xb98466,exp:.9,win:.55,lamp:.6,stars:0},
+ night:{top:0x040817,hor:0x16213a,bot:0x07080c,sun:0x9fb4ff,sunI:.08,hemiS:0x2c3a5c,hemiG:0x08090d,hemiI:.12,el:38,az:120,fog:0x0e1422,exp:.75,win:1,lamp:1,stars:1}};
+const lerp=(a,b,t)=>a+(b-a)*t;const COLK=['top','hor','bot','sun','hemiS','hemiG','fog'];
+function mixK(a,b,u){const o={};for(const k in a)o[k]=COLK.includes(k)?new THREE.Color(a[k]).lerp(new THREE.Color(b[k]),u):lerp(a[k],b[k],u);return o;}
+function applyK(k){skyU.top.value.copy(k.top);skyU.hor.value.copy(k.hor);skyU.bot.value.copy(k.bot);skyU.stars.value=k.stars;
+ const el=k.el*Math.PI/180,az=k.az*Math.PI/180;const d=new THREE.Vector3(Math.cos(el)*Math.sin(az),Math.sin(el),Math.cos(el)*Math.cos(az));
+ skyU.sunDir.value.copy(d);skyU.sunCol.value.copy(k.sun).multiplyScalar(k.stars>0.5?0.15:1);sun.position.copy(sun.target.position).addScaledVector(d,150);sun.color.copy(k.sun);sun.intensity=k.sunI;
+ hemi.color.copy(k.hemiS);hemi.groundColor.copy(k.hemiG);hemi.intensity=k.hemiI;S.fog.color.copy(k.fog);R.toneMappingExposure=k.exp;
+ for(const g of GLASS){g.emissive.setHex(0xffc27a);g.emissiveIntensity=k.win*1.3;}wash.intensity=k.lamp*1.6;for(const l of lampL)l.intensity=k.lamp*1.1;NIGHT.value=k.win;groundMat.color.setScalar(lerp(.55,.08,k.win));for(const f of (window.NIGHT_HOOK||[]))f(k);}
+let cur='day',from=K.day,to=K.day,mixT=1;
+function setMode(m){if(m===cur)return;from=mixK(from,to,Math.min(mixT,1));to=K[m];mixT=0;cur=m;document.querySelectorAll('.seg [data-k]').forEach(b=>b.setAttribute('aria-pressed',b.dataset.k===m));}
+document.querySelectorAll('.seg [data-k]').forEach(b=>b.onclick=()=>setMode(b.dataset.k));
+let auto=true,idle=0;const autoBtn=document.getElementById('auto');autoBtn.onclick=()=>{auto=!auto;autoBtn.setAttribute('aria-pressed',auto);};
+orbit.addEventListener('start',()=>{idle=-3;});
+const L=new THREE.GLTFLoader();L.setMeshoptDecoder(MeshoptDecoder);const pb=document.getElementById('pb');
+const GLBURL='../model.glb';
+// ---- 依 Tim 2026-11-16 指示修改模型 ----
+L.load(GLBURL,g=>{window.MODEL=g.scene;g.scene.traverse(o=>{if(o.isMesh){o.castShadow=true;o.receiveShadow=true;const m=o.material;if(m.map)m.map.encoding=THREE.sRGBEncoding;
+  if(m.name==='PaletteMaterial001'){m.color.setScalar(.78);glow(m);}editMesh(o);if(m.name.indexOf('Blacktop')>=0)m.color.setScalar(.38);
+  if(m.name==='PaletteMaterial002'||m.name==='[Translucent_Resin_Crush_Gray]1'){m.emissive=new THREE.Color(0);GLASS.push(m);}}});  // 粉紅鄰地色塊不顯示（鄰居房子，非本案）
+ S.add(g.scene);bambooRow();addLightsAndSite();document.getElementById('load').classList.add('off');},x=>{if(x.total)pb.style.width=Math.round(x.loaded/x.total*100)+'%';},e=>{document.querySelector('.load small').textContent=window.T_FAIL;});
+addEventListener('resize',()=>{cam.aspect=innerWidth/innerHeight;cam.updateProjectionMatrix();R.setSize(innerWidth,innerHeight);});
+let last=performance.now();
+function tick(now){requestAnimationFrame(tick);const dtR=(now-last)/1000,dt=Math.min(.05,dtR);last=now;
+ mixT=Math.min(1,mixT+dtR*.7);applyK(mixK(from,to,mixT*mixT*(3-2*mixT)));
+ idle+=dt;orbit.autoRotate=auto&&idle>0;orbit.autoRotateSpeed=.5;orbit.update();R.render(S,cam);}
+requestAnimationFrame(tick);
+</script>
+<script src="interior.js"></script>
+<script src="dollhouse.js"></script>
+</body></html>

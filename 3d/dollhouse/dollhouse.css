@@ -1,0 +1,17 @@
+/* 娃娃屋視角：樓層按鈕（桌機右側直排、手機底部橫排） */
+.fl{position:fixed;z-index:3;display:flex;gap:6px;background:var(--panel);backdrop-filter:blur(8px);border:1px solid var(--line);border-radius:8px;padding:6px}
+.fl button{font:inherit;font-size:15px;letter-spacing:.06em;color:var(--ink);background:transparent;border:0;border-radius:5px;min-width:56px;height:48px;padding:0 10px;cursor:pointer;font-variant-numeric:tabular-nums}
+.fl button[aria-pressed="true"]{background:var(--accent);color:#1b1d21;font-weight:500}
+.fl button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.fl .cap{font-size:11px;color:var(--muted);letter-spacing:.2em;text-align:center;padding:4px 0 2px}
+.fi{position:fixed;z-index:3;left:max(16px,env(safe-area-inset-left,0px));top:calc(max(16px,env(safe-area-inset-top,0px)) + 132px);max-width:280px;background:var(--panel);backdrop-filter:blur(8px);border:1px solid var(--line);border-radius:4px;padding:10px 14px;font-size:13px;line-height:1.6;color:var(--ink)}
+.fi b{display:block;font-family:var(--display);font-size:16px;letter-spacing:.1em;font-weight:600}
+.fi small{color:var(--muted);font-size:12px}
+@media (min-width:760px){.fl{right:max(16px,env(safe-area-inset-right,0px));top:50%;transform:translateY(-50%);flex-direction:column}}
+@media (max-width:759.98px){.fl{left:max(16px,env(safe-area-inset-left,0px));right:max(16px,env(safe-area-inset-right,0px));bottom:calc(max(16px,env(safe-area-inset-bottom,0px)) + 64px);}
+.fl .cap{display:none}.fl button{flex:1 1 0;min-width:0;padding:0 2px;font-size:14px}.fi{top:calc(max(16px,env(safe-area-inset-top,0px)) + 76px);max-width:calc(100% - 32px);padding:6px 12px}.fi b{font-size:14px}}
+body.doll .hint{visibility:hidden}
+/* 立體／平面切換 */
+.fi .vm{display:flex;gap:6px;margin-top:8px;pointer-events:auto}
+.fi .vm button{font:inherit;font-size:13px;min-height:36px;padding:0 14px;border-radius:8px;border:1px solid rgba(255,255,255,.25);background:transparent;color:inherit;cursor:pointer}
+.fi .vm button[aria-pressed="true"]{background:#d9a35c;border-color:#d9a35c;color:#1d1f1e}
